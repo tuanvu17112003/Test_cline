@@ -1,0 +1,266 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --fb-canvas: #f4f5f8;
+  --fb-surface: #ffffff;
+  --fb-surface-2: #f8f9fc;
+  --fb-surface-3: #eef0f6;
+  --fb-border: #e2e6ef;
+  --fb-border-strong: #cbd2e0;
+  --fb-text: #0f172a;
+  --fb-muted: #5b6478;
+  --fb-faint: #8892a6;
+  --fb-brand: #5348e0;
+  --fb-brand-hover: #443ad0;
+  --fb-brand-soft: #eeecff;
+  --fb-brand-contrast: #ffffff;
+  --fb-danger: #d92d4b;
+  --fb-danger-soft: #feeef1;
+  --fb-success: #0f8a5f;
+  --fb-success-soft: #e6f7ef;
+  --fb-warning: #b45309;
+  --fb-warning-soft: #fef4e6;
+  --fb-ring: #6a5cff;
+  --fb-shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 8px 24px -18px rgb(15 23 42 / 0.35);
+  --fb-shadow-lg: 0 24px 60px -28px rgb(15 23 42 / 0.45);
+  --fb-grid: rgb(15 23 42 / 0.045);
+}
+
+.dark {
+  color-scheme: dark;
+  --fb-canvas: #0a0e17;
+  --fb-surface: #111725;
+  --fb-surface-2: #161d2d;
+  --fb-surface-3: #1e2739;
+  --fb-border: #26324a;
+  --fb-border-strong: #3a4864;
+  --fb-text: #eef2fa;
+  --fb-muted: #a3aec4;
+  --fb-faint: #7c8ba6;
+  --fb-brand: #8b80ff;
+  --fb-brand-hover: #a49bff;
+  --fb-brand-soft: #221f45;
+  --fb-brand-contrast: #0b0f19;
+  --fb-danger: #ff7189;
+  --fb-danger-soft: #361722;
+  --fb-success: #4ade9f;
+  --fb-success-soft: #10291f;
+  --fb-warning: #fbbf60;
+  --fb-warning-soft: #2c2211;
+  --fb-ring: #a49bff;
+  --fb-shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 12px 32px -22px rgb(0 0 0 / 0.9);
+  --fb-shadow-lg: 0 30px 80px -40px rgb(0 0 0 / 0.95);
+  --fb-grid: rgb(148 163 184 / 0.07);
+}
+
+@theme inline {
+  --color-canvas: var(--fb-canvas);
+  --color-surface: var(--fb-surface);
+  --color-surface-2: var(--fb-surface-2);
+  --color-surface-3: var(--fb-surface-3);
+  --color-line: var(--fb-border);
+  --color-line-strong: var(--fb-border-strong);
+  --color-ink: var(--fb-text);
+  --color-muted: var(--fb-muted);
+  --color-faint: var(--fb-faint);
+  --color-brand: var(--fb-brand);
+  --color-brand-hover: var(--fb-brand-hover);
+  --color-brand-soft: var(--fb-brand-soft);
+  --color-brand-contrast: var(--fb-brand-contrast);
+  --color-danger: var(--fb-danger);
+  --color-danger-soft: var(--fb-danger-soft);
+  --color-success: var(--fb-success);
+  --color-success-soft: var(--fb-success-soft);
+  --color-warning: var(--fb-warning);
+  --color-warning-soft: var(--fb-warning-soft);
+  --color-slate-dot: #94a3b8;
+  --color-sky-dot: #0ea5e9;
+  --color-amber-dot: #f59e0b;
+  --color-emerald-dot: #10b981;
+
+  --font-sans:
+    'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  --shadow-card: var(--fb-shadow);
+  --shadow-float: var(--fb-shadow-lg);
+}
+
+@layer base {
+  * {
+    border-color: var(--fb-border);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--fb-canvas);
+    color: var(--fb-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--fb-brand) 30%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--fb-ring);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer components {
+  .input {
+    width: 100%;
+    border-radius: 0.625rem;
+    border: 1px solid var(--fb-border);
+    background-color: var(--fb-surface);
+    color: var(--fb-text);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.35rem;
+    transition:
+      border-color 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease;
+  }
+
+  .input::placeholder {
+    color: var(--fb-faint);
+  }
+
+  .input:hover:not(:disabled) {
+    border-color: var(--fb-border-strong);
+  }
+
+  .input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .input[aria-invalid='true'] {
+    border-color: var(--fb-danger);
+    background-color: color-mix(in oklab, var(--fb-danger-soft) 55%, var(--fb-surface));
+  }
+
+  .input:focus-visible {
+    outline: 2px solid var(--fb-ring);
+    outline-offset: 1px;
+    border-color: transparent;
+  }
+
+  .card {
+    border-radius: 1rem;
+    border: 1px solid var(--fb-border);
+    background-color: var(--fb-surface);
+    box-shadow: var(--fb-shadow);
+  }
+
+  .surface-grid {
+    background-image:
+      linear-gradient(to right, var(--fb-grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--fb-grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--fb-border-strong) transparent;
+  }
+}
+
+@keyframes fb-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fb-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fb-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fb-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-in {
+  animation: fb-fade-in 160ms ease-out both;
+}
+
+.animate-pop-in {
+  animation: fb-pop-in 180ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+.animate-slide-up {
+  animation: fb-slide-up 220ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--fb-surface-3);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--fb-surface) 65%, transparent),
+    transparent
+  );
+  animation: fb-shimmer 1.6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
